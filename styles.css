@@ -1,0 +1,14 @@
+h1 {
+  color: #369;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 250%;
+}
+.ng-invalid {
+    border: 1px solid red;
+}
+form.ng-invalid {
+    border: 0px;
+}
+div[ngmodelgroup], div[formgroupname]{
+    border: 0px;
+}

@@ -1,0 +1,125 @@
+<h1>Template Driven</h1>
+<div class="container">
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+        <div ngModelGroup="userData">
+            <!--USERNAME-->
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text"
+                    class="form-control"
+                    id="username"
+                    [(ngModel)] = "user.username"
+                    name="username"
+                    required>
+            </div>
+
+            <!--EMAIL-->
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text"
+                    class="form-control"
+                    id="email"
+                    [(ngModel)] = "user.email"
+                    name="email"
+                    pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+                    required
+                    #email="ngModel">
+                <div *ngIf="!email.valid">
+                    The email is not valid
+                </div>
+            </div>
+        </div>
+
+        <!--PASSWORD-->
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password"
+                class="form-control"
+                id="password"
+                [(ngModel)] = "user.password"
+                name="password"
+                required>
+        </div>
+
+        <!--GENDER-->
+        <div class="radio" *ngFor="let g of genders">
+            <label>
+                <input type="radio"
+                       name="gender"
+                       [(ngModel)]="user.gender"
+                       [value] = "g"
+                       >
+                {{g}}
+            </label>
+
+        </div>
+
+        <!--COUNTRY-->
+        <div class="form-group">
+            <label for="country">Country</label>
+            <select name="country" 
+                    id="country" 
+                    class="form-control"
+                    [(ngModel)]="user.country">
+                <option *ngFor="let c of countries" [value]="c">{{c}}</option>
+            </select>
+        </div>
+        
+        <!--PROVINCE-->
+        <div class="form-group">
+            <label for="province">Province</label>
+            <select name="province" 
+                    id="province" 
+                    class="form-control"
+                    [(ngModel)]="user.province">
+                <option *ngFor="let p of provinces" [value]="p.id">{{p.name}}</option>
+            </select>
+        </div>
+
+        <!--PROVINCE DIVITION 1-->
+        <div class="form-group">
+            <label for="provinceDivition1">Localidad</label>
+            <select name="provinceDivition1" 
+                    id="provinceDivition1" 
+                    class="form-control"
+                    [(ngModel)]="user.provinceDivition1">
+                <option *ngFor="let p of provinceDivitions1" [value]="p.id">{{p.name}}</option>
+            </select>
+        </div>
+
+        <!--SPORTS-->
+        <div class="form-group">
+            <h3>Sports</h3>
+            <div class="form-group" *ngFor="let s of sports; let i = index">
+                
+                <input type="checkbox" 
+                    name="sports" 
+                    value="{{s.id}}"
+                    [checked]="s.checked?'checked':''"
+                    (change) = "changeSport(i, $event)"
+                    >
+                    <!--[(ngModel)]="s.checked"-->
+                <label for="sports">{{s.name}}</label>
+            </div>
+        </div>
+
+        <!--PLACES-->
+        <div class="form-group">
+            <h3>Places</h3>
+            <div class="form-group" *ngFor="let s of places; let i = index">
+                
+                <input type="checkbox" 
+                    name="places" 
+                    value="{{s.id}}"
+                    [checked]="s.checked?'checked':''"
+                    (change) = "changePlace(i, $event)"
+                    >
+                    <!--[(ngModel)]="s.checked"-->
+                <label for="places">{{s.name}}</label>
+            </div>
+        </div>
+
+        <!--SUBMIT-->
+        <button class="btn btn-primary" type="submit" [disabled]="!f.valid">Submit</button>
+    </form>
+</div>
